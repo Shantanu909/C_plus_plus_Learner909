@@ -1,81 +1,98 @@
-#include<iostream>
-using namespace std;
+#include <iostream>
 
-int SizeofQueue = 5;
-int queue[5];
-int head = -1;
-int tail = -1;
-void enqueue(int data){
-		if(tail==SizeofQueue-1){
-			cout<<"Queue is full";
-		}
-		queue[++tail]=data;
-		if(head==-1)
-		head++;		
-}
-void dequeue(){
-	if(head==-1 || tail==-1)
+class Queue {
+private:
+    static const int MAX_SIZE = 100; // Maximum queue size
+    int data[MAX_SIZE];
+    int front;
+    int rear;
 
-	cout<< "Queue is empty"; 
-	int data;
-	data = queue[head];
-	if(head==tail){
-		head = -1;	
-			tail = -1;
-	}else{
-		head++;	
-	}
-}
-int main()
-{
-		int j;
-	j=1;
-	while(j>0){
-		
-	cout<<"Welcome to the code for Queue\n";
-	cout<<"Please enter your choice of operation\n";
-	cout<<"1. Add element\n";
-	cout<<"2. Delete element\n";
-	cout<<"3. Get head count\n";
-	cout<<"4. Get tail count\n";
-	
+public:
+    Queue() : front(0), rear(0) {}
 
-	
-	int choice;
-	cin>>choice;
-	if(choice==1)
-	{
-		cout<<"Please enter the data you want to add.\n";
-		int dat;
-		cin>>dat;
-		enqueue(dat);
-	}
-	else if(choice==2)
-	{
-		dequeue();
-		cout<<"\n";
-		
-	}	
-	else if(choice=3)
-	{
-		cout<<head;
-		cout<<"\n";
-	}
-	else if(choice==4)
-	{
-		cout<<tail;
-		cout<<"\n";
-	}
-	cout<<"Queue: \n";
-	int i;
-	for(i=0;i<SizeofQueue;i++)
-	{
-		cout<<queue[i];
-		cout<<"\n";
-	
-	}
-	cout<<"Would you like to exit the code? Press zero for yes, any other number for no.\n";
-	cin>>j;
-	}
+    // Check if the queue is empty
+    bool isEmpty() {
+        return front == rear;
+    }
 
+    // Check if the queue is full
+    bool isFull() {
+        return (rear + 1) % MAX_SIZE == front;
+    }
+
+    // Enqueue (add) an element to the rear of the queue
+    void enqueue(int value) {
+        if (!isFull()) {
+            data[rear] = value;
+            rear = (rear + 1) % MAX_SIZE;
+        } else {
+            std::cerr << "Queue is full. Cannot enqueue." << std::endl;
+        }
+    }
+
+    // Dequeue (remove) an element from the front of the queue
+    int dequeue() {
+        if (!isEmpty()) {
+            int dequeuedValue = data[front];
+            front = (front + 1) % MAX_SIZE;
+            return dequeuedValue;
+        } else {
+            std::cerr << "Queue is empty. Cannot dequeue." << std::endl;
+            return -1; // You can choose a different way to handle this error.
+        }
+    }
+
+    // Display the elements in the queue
+    void display() {
+        if (isEmpty()) {
+            std::cout << "Queue is empty." << std::endl;
+            return;
+        }
+        std::cout << "Queue elements: ";
+        int index = front;
+        while (index != rear) {
+            std::cout << data[index] << " ";
+            index = (index + 1) % MAX_SIZE;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    Queue queue;
+
+    while (true) {
+        std::cout << "Choose an option:" << std::endl;
+        std::cout << "1. Enqueue" << std::endl;
+        std::cout << "2. Dequeue" << std::endl;
+        std::cout << "3. Display Queue" << std::endl;
+        std::cout << "4. Exit" << std::endl;
+
+        int option;
+        std::cin >> option;
+
+        switch (option) {
+            case 1:
+                int value;
+                std::cout << "Enter a value to enqueue: ";
+                std::cin >> value;
+                queue.enqueue(value);
+                break;
+            case 2:
+                if (!queue.isEmpty()) {
+                    int dequeuedValue = queue.dequeue();
+                    std::cout << "Dequeued value: " << dequeuedValue << std::endl;
+                }
+                break;
+            case 3:
+                queue.display();
+                break;
+            case 4:
+                std::cout << "Exiting the program." << std::endl;
+                return 0;
+            default:
+                std::cerr << "Invalid option. Please choose a valid option." << std::endl;
+                break;
+        }
+    }
 }
