@@ -1,32 +1,44 @@
+//Write a program to implement Bubble sort.
 #include <iostream>
+using namespace std;
+int main()
+{
+	cout<<"Welcome to the program for bubble sorting\n";
+	cout<<"Please enter the number of elements in your list.\n";
+	int temp_n;
+	cin>>temp_n;
+	cout<<"Please enter an array of your unsorted numbers.\n";
+	int arr[temp_n];
+	int counte=0;
+	for(int i =0;i<temp_n;i++)
+	{
+		cin>>arr[i];
+	}
+	for(int i =temp_n;i>-1;i--)
+	{
+			int count =0;
+		for(int j=temp_n-1;j>0;j--)
+		{
+			if(arr[i]>arr[j])
+			{
+				arr[i] += arr[j];
+				arr[j] = arr[i] - arr[j];
+				arr[i] = arr[i] - arr[j];
+				count++;
+			}
+		}
+		counte++;
+		if(count<0)
+		{
+			break;
+		}
+		}
 
-void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
-}
-
-int main() {
-    int arr[] = {12, 11, 13, 5, 6, 7};
-    int arr_size = sizeof(arr) / sizeof(arr[0]);
-
-    std::cout << "Original array: ";
-    for (int i = 0; i < arr_size; i++)
-        std::cout << arr[i] << " ";
-    std::cout << std::endl;
-
-    bubbleSort(arr, arr_size);
-
-    std::cout << "Sorted array: ";
-    for (int i = 0; i < arr_size; i++)
-        std::cout << arr[i] << " ";
-    std::cout << std::endl;
-
-    return 0;
-}
+	
+	for(int i =0;i<temp_n;i++)
+	{
+		cout<<arr[i];
+		cout<<"\n";
+		
+	}
+	}
