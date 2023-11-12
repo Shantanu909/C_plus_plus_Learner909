@@ -114,7 +114,7 @@ int main(){
 	for(int i=0;i<temp_size;i++)
 	{
 		cin>>temp_s;
-		list.insert(i,temp_s);
+		list.insert(temp_s);
 	}
 	int df =1;
 	while(df>0)
@@ -126,12 +126,12 @@ int main(){
 		case 1: 			
 			cout<<"Enter index and data to create a new node";
 			cin>>i>>data;
-			list.InsertNode(i, data);
+			list.insert(data);
 			break;
 		case 2: 			
 			cout<<"Enter data to find from list";
 			cin>>data;
-			list.FindNode(data);
+			list.find(data);
 			break;
 		default:
 			cout<<"Invalid choice";

@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 class Node {
 public:
@@ -29,15 +30,24 @@ public:
         std::cout << "Element " << value << " inserted." << std::endl;
     }
 
-    bool find(int value) {
+    void find(int value) {
         Node* current = head;
+        int counter=0;
         while (current) {
             if (current->data == value) {
-                return true;
-            }
+			    cout<<"Your number: ";
+                cout<<value;
+                cout<<"	is present at index no:";
+                cout<<current; 
+                cout<<"\n";
+				counter++;        
+				}
             current = current->next;
         }
-        return false;
+        if(counter=0)
+        {
+        	cout<<"Element not found in list!";
+		}
     }
 
     void remove(int value) {
@@ -97,14 +107,27 @@ public:
         prev = current;
         current = next;
     }
-    head = prev;	
-		
+    head = prev;		
 	}
+	
+	void count_nodes()
+	{
+		Node* current = head;
+        int counter=0;
+        while (current) {
+        	counter++;
+        	current = current->next;
+		}
+		cout<<"There are: ";
+		cout<<counter;
+		cout<<" nodes in the list";
+		
+	
+}
 };
 
-
 int main(){
-	List list;
+	LinkedList list;
 	
 	int choice = 0;
 	int i = 0;
@@ -117,24 +140,44 @@ int main(){
 	for(int i=0;i<temp_size;i++)
 	{
 		cin>>temp_s;
-		list.InsertNode(i,temp_s);
+		list.insert(temp_s);
 	}
 	int df =1;
 	while(df>0)
 	{	
-	cout<<"Linked List \n"<<"Enter 1 for Insert\n"<<"Enter 2 for Find\n"<<"Enter 3 for Delete\n"<<"Enter 4 for Display List\n";
+	cout<<"Linked List \n";
+	cout<<"Enter 1 for Insert\n";
+	cout<<"Enter 2 for Find\n";
+	cout<<"Enter 3 for Delete\n";
+	cout<<"Enter 4 for Display List\n";
+	cout<<"Enter 5 for Reversing the list\n";
+	cout<<"Enter 6 for counting the nodes in the list\n";
 	cin>>choice;
 	
 	switch(choice){
 		case 1: 			
-			cout<<"Enter index and data to create a new node";
-			cin>>i>>data;
-			list.InsertNode(i, data);
+			cout<<"Enter data to create a new node\n";
+			cin>>data;
+			list.insert(data);
 			break;
 		case 2: 			
-			cout<<"Enter data to find from list";
+			cout<<"Enter data to find from list\n";
 			cin>>data;
-			list.FindNode(data);
+		    list.find(data);
+			break;
+		case 3: 			
+			cout<<"Enter data to be deleted\n";
+			cin>>data;
+			list.remove(data);
+			break;
+		case 4: 			
+			list.display();
+			break;
+		case 5:
+			list.ReverseTheLinkedList();
+			break;
+		case 6:
+			list.count_nodes();
 			break;
 		default:
 			cout<<"Invalid choice";
@@ -146,6 +189,6 @@ int main(){
 	{
 		df=0;
 	}
+  }	
 }
-	
-}
+
